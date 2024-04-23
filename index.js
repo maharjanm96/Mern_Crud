@@ -14,7 +14,7 @@ app.use(cors());
 app.use(express.json());
 
 //routes
-app.use("/api", user);
+app.use("/api/users", user);
 
 app.listen(PORT, () => {
   console.log(`Server started at port http://localhost:${PORT}`);
