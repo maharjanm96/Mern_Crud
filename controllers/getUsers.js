@@ -10,9 +10,8 @@ const getAllUsers = async (req, res) => {
 };
 
 const getSingleUser = async (req, res) => {
+  const { userId } = req.params;
   try {
-    const { userId } = req.params;
-
     const singleUser = await UserModel.findOne({ _id: userId });
     res.json(singleUser ? singleUser : "No user");
   } catch (error) {

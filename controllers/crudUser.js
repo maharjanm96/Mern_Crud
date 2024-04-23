@@ -1,9 +1,8 @@
 const UserModel = require("../models/userModel");
 
 const createUser = async (req, res) => {
+  const { name, age } = req.body;
   try {
-    const { name, age } = req.body;
-
     const nameExists = await UserModel.findOne({ name });
     const ageExists = await UserModel.findOne({ age });
     if (nameExists && ageExists)
@@ -18,9 +17,9 @@ const createUser = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
+  const { userId } = req.params;
+  const { ...restUserDetails } = req.body;
   try {
-    const { userId } = req.params;
-    const { ...restUserDetails } = req.body;
     const user = await UserModel.findByIdAndUpdate(userId, restUserDetails, {
       new: true,
     });
@@ -30,4 +29,17 @@ const updateUser = async (req, res) => {
   }
 };
 
-module.exports = {createUser, updateUser};
+const deleteUser = async (req, res) => {
+  const { userId } = req.params;
+  try {
+    const user = await UserModel.findByIdAndDelete(userId, req.body, {
+      new: true,
+    });
+    res.status(200).json({ message: "User deleted", data: user });
+  } catch (error) {
+    res.status(400).json({ message: "Something went wrong", error: error });
+    console.log("Something went wrong", error);
+  }
+};
+
+module.exports = { createUser, updateUser, deleteUser };
