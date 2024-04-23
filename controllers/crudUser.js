@@ -17,4 +17,17 @@ const createUser = async (req, res) => {
   }
 };
 
-module.exports = createUser;
+const updateUser = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { ...restUserDetails } = req.body;
+    const user = await UserModel.findByIdAndUpdate(userId, restUserDetails, {
+      new: true,
+    });
+    res.status(200).json({ message: "User updated", data: user });
+  } catch (err) {
+    res.status(500).json({ messgae: "Something went wrong", error: err });
+  }
+};
+
+module.exports = {createUser, updateUser};
