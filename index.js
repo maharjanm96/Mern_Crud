@@ -5,7 +5,7 @@ const dbConnect = require("./dbConfig/db");
 require("dotenv").config();
 dbConnect();
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 5000;
 
 const user = require("./routes/userRoute");
 
