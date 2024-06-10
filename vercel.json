@@ -6,7 +6,14 @@
       "use": "@vercel/node"
     }
   ],
-
+  "functions": {
+    "api/users/getallusers.js": {
+      "maxDuration": 10
+    },
+    "api/users/:userId.js": {
+      "maxDuration": 10
+    }
+  },
   "routes": [
     {
       "src": "/api/(.*)",
